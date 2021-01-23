@@ -28,11 +28,33 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tracker-list {
+  margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.tracker {
+  display: flex;
+    justify-content: space-around;
+    border: 1px solid gray;
+    align-items: center;
+    border-radius: 5px;
+    padding: 15px 0px;
+    margin-bottom: 10px;
+}
+
+.search {
+  width: 200px !important;
+  margin-bottom: 0px !important;
+  margin-top: 90px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="datetime-local"] {
+  width: 200px;
 }
