@@ -100,7 +100,7 @@ function App() {
           <input type="submit" style={{
             marginRight: '10px'
           }} value="Submit" onClick={onClickSubmit} />
-          <input type="submit" value="Add Manual Tracker" onClick={onClickAddTracker} />
+          <input type="submit" value="Add Manual Task" onClick={onClickAddTracker} />
         </div>
         <div>
           <input value={searchText} type='text' className='search' name='search' placeholder='Search by description/name' onChange={onChangeSearch} />
