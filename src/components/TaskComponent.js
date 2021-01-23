@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import difference_in_seconds from 'date-fns/differenceInSeconds';
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 
 
 export default function TaskComponent(props) {
@@ -29,7 +29,6 @@ export default function TaskComponent(props) {
     }, [props.data]);
 
     useEffect(() => {
-        console.log('Hi')
         const filtered = allTrackers.filter(t => t.endTime === null);
         if (filtered?.length === 1) {
             setCurrentTracker(filtered[0])
@@ -42,7 +41,6 @@ export default function TaskComponent(props) {
                 diff += difference_in_seconds(new Date(track.endTime), new Date(track.startTime));
             }
         });
-        console.log(diff)
         setTimeSpentInSec(diff);
     }, [allTrackers]);
 
@@ -95,6 +93,18 @@ export default function TaskComponent(props) {
         })
     }
 
+    function onClickRemove() {
+        fetch(`http://localhost:4000/app/task/action/${props.data._id}/remove`, {
+            method: 'POST'
+        }).then((res) => {
+            res.json().then((d) => {
+                props.onRemove(data._id)
+            });
+        }).catch((err) => {
+            window.alert('Error saving')
+        })
+    }
+
     const time = secondsToTime(timeSpentInSec + runningTime);
     const startedTime = allTrackers?.[allTrackers.length - 1]?.startTime;
     const endTime = allTrackers?.[0]?.endTime;
@@ -114,7 +124,10 @@ export default function TaskComponent(props) {
                 <p>{time ? `${time.h} hour ${time.m} mins ${time.s} sec` : '-'}</p>
             </div>
             <div>
-                <button onClick={() => currentTracker ? onClickPause() : onClickResume()}>{currentTracker ? 'Pause' : 'Resume'}</button>
+                <button style={{
+                    marginRight: '10px'
+                }} onClick={() => currentTracker ? onClickPause() : onClickResume()}>{currentTracker ? 'Pause' : 'Resume'}</button>
+                <button onClick={() => onClickRemove()}>Remove</button>
             </div>
         </div>
     )

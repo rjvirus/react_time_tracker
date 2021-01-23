@@ -95,6 +95,11 @@ function App() {
     setSearchText(event.target.value);
   }
 
+  function onRemove(id) {
+    const updatedTrackerList = trackerList.filter(t => t._id !== id);
+    setTrackerList(updatedTrackerList);
+  }
+
   return (
     <div className="App">
       <div className='top'>
@@ -133,7 +138,7 @@ function App() {
         <div className='tracker-list'>
           {filteredTrackerList.map(task => {
             return (
-              <Task keys={task._id} data={task} />
+              <Task keys={task._id} data={task} onRemove={() => onRemove(task._id)} />
             )
           })}
         </div>
