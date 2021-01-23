@@ -66,9 +66,9 @@ function App() {
       body: JSON.stringify(bodyData)
     }).then((res) => {
       res.json().then((d) => {
-        let updatedTrackerList = Object.assign({}, trackerList);
-        updatedTrackerList[d.data._id] = d.data;
-        setTrackerList(updatedTrackerList)
+        let updatedTrackerList = [...filteredTrackerList];
+        updatedTrackerList.push(d.data);
+        setTrackerList(updatedTrackerList);
         setEndTime('');
         setStartTime('');
         setName('');
