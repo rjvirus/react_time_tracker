@@ -119,9 +119,12 @@ function App() {
       )}
       <ReactModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
         <div className='modal-form'>
-          <input type="text" value={name} name="name" placeholder="Enter task name *" onChange={onChangeName} />
+          <input style={{
+            border: '1px solid black'
+          }} type="text" value={name} name="name" placeholder="Enter task name *" onChange={onChangeName} />
           <textarea value={description} name="description" placeholder="Enter description here" onChange={onChangeDescription} rows="4" cols="70" style={{
-            marginBottom: '10px'
+            marginBottom: '10px',
+            border: '1px solid black'
           }} />
           <label for="start">Start date*:</label>
 
@@ -145,8 +148,12 @@ function App() {
           ></input>
 
           <button style={{
-            marginTop: '20px'
+            marginTop: '20px',
+            width: '200px'
           }} disabled={startTime === '' || name === ''} onClick={onClickSubmit}>Submit</button>
+          <button style={{
+            width: '200px'
+          }} onClick={() => setIsModalOpen(false)}>Close Dialog</button>
         </div>
       </ReactModal>
     </div>
