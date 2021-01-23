@@ -7,8 +7,8 @@ function App() {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [trackerList, setTrackerList] = useState({});
-  const [filteredTrackerList, setFilteredTrackerList] = useState({});
+  const [trackerList, setTrackerList] = useState([]);
+  const [filteredTrackerList, setFilteredTrackerList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [startTime, setStartTime] = useState('');
@@ -27,14 +27,13 @@ function App() {
   useEffect(() => {
     if (trackerList) {
       if (searchText.length > 0) {
-        const updatedMap = {};
-        Object.keys(trackerList).forEach(tId => {
-          const t = trackerList[tId];
+        const updatedArrray = [];
+        trackerList.forEach(t => {
           if (t.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()) || t.description.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())) {
-            updatedMap[tId] = t;
+            updatedArrray.push(t)
           }
         });
-        setFilteredTrackerList(updatedMap);
+        setFilteredTrackerList(updatedArrray);
       } else {
         setFilteredTrackerList(trackerList);
       }
@@ -109,11 +108,11 @@ function App() {
         </div>
 
       </div>
-      {filteredTrackerList && Object.keys(filteredTrackerList).length > 0 && (
+      {filteredTrackerList && filteredTrackerList.length > 0 && (
         <div className='tracker-list'>
-          {Object.keys(filteredTrackerList).map(taskId => {
+          {filteredTrackerList.map(task => {
             return (
-              <Task keys={taskId} data={trackerList[taskId]} />
+              <Task keys={task._id} data={task} />
             )
           })}
         </div>
