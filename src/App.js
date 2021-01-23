@@ -55,7 +55,7 @@ function App() {
       description
     }
 
-    if(isModalOpen) {
+    if (isModalOpen) {
       bodyData.startTime = startTime;
       bodyData.endTime = endTime;
     }
@@ -92,12 +92,12 @@ function App() {
     <div className="App">
       <div className='top'>
         <h1>Time Tracker</h1>
-        <input type="text" value={name} name="name" placeholder="Enter task name" onChange={onChangeName} />
+        <input type="text" value={name} name="name" placeholder="Enter task name*" onChange={onChangeName} />
         <textarea value={description} name="description" placeholder="Enter description here" onChange={onChangeDescription} rows="4" cols="70" style={{
           marginBottom: '10px'
         }} />
         <div>
-          <input type="submit" style={{
+          <input type="submit" disabled={name.length < 1} style={{
             marginRight: '10px'
           }} value="Submit" onClick={onClickSubmit} />
           <input type="submit" value="Add Manual Task" onClick={onClickAddTracker} />
@@ -119,14 +119,17 @@ function App() {
       )}
       <ReactModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
         <div className='modal-form'>
-          <input type="text" value={name} name="name" placeholder="Enter task name" onChange={onChangeName} />
+          <input type="text" value={name} name="name" placeholder="Enter task name *" onChange={onChangeName} />
           <textarea value={description} name="description" placeholder="Enter description here" onChange={onChangeDescription} rows="4" cols="70" style={{
             marginBottom: '10px'
           }} />
-          <label for="start">Start date:</label>
+          <label for="start">Start date*:</label>
 
           <input type="datetime-local" id="start" name="trip-start"
             value={startTime}
+            style={{
+              marginBottom: '10px'
+            }}
             onChange={(e) => setStartTime(e.target.value)}
           >
 
@@ -134,13 +137,16 @@ function App() {
           <label for="start">End date:</label>
 
           <input type="datetime-local" id="end" name="trip-end"
+            style={{
+              marginBottom: '10px'
+            }}
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
           ></input>
-          
+
           <button style={{
             marginTop: '20px'
-          }} onClick={onClickSubmit}>Submit</button>
+          }} disabled={startTime === '' || name === ''} onClick={onClickSubmit}>Submit</button>
         </div>
       </ReactModal>
     </div>
