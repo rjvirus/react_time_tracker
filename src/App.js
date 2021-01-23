@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import Task from './components/TaskComponent';
 import ReactModal from 'react-modal';
 
+const pageLimit = 4;
+
 function App() {
 
   const [name, setName] = useState('');
@@ -13,13 +15,16 @@ function App() {
   const [searchText, setSearchText] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
-    fetch('http://localhost:4000/app/getAll', {
+    fetch(`http://localhost:4000/app/getAll`, {
       method: 'GET',
     }).then(data => {
       data.json().then(d => {
-        setTrackerList(d)
+        setTrackerList(d);
+        setTotalPage(Math.ceil(d.length / pageLimit));
       })
     })
   }, []);
@@ -35,10 +40,12 @@ function App() {
         });
         setFilteredTrackerList(updatedArrray);
       } else {
-        setFilteredTrackerList(trackerList);
+        const updated = trackerList.slice((currentPage - 1) * pageLimit, currentPage * pageLimit);
+        setTotalPage(Math.ceil(trackerList.length / pageLimit));
+        setFilteredTrackerList(updated);
       }
     }
-  }, [searchText, trackerList]);
+  }, [searchText, trackerList, currentPage]);
 
   function onChangeName(event) {
     setName(event.target.value);
@@ -66,7 +73,7 @@ function App() {
       body: JSON.stringify(bodyData)
     }).then((res) => {
       res.json().then((d) => {
-        let updatedTrackerList = [...filteredTrackerList];
+        let updatedTrackerList = [...trackerList];
         updatedTrackerList.push(d.data);
         setTrackerList(updatedTrackerList);
         setEndTime('');
@@ -106,7 +113,21 @@ function App() {
           <input value={searchText} type='text' className='search' name='search' placeholder='Search by description/name' onChange={onChangeSearch} />
           <button onClick={() => setSearchText('')}>Reset</button>
         </div>
-
+        {!searchText && (
+          <div style={{
+            marginTop: '10px'
+          }}>
+            <div>
+              <p style={{ fontSize: '12px', color: 'white' }}>Current Page : {currentPage}</p>
+              <p style={{ fontSize: '12px', color: 'white' }}>Total Pages : {totalPage}</p>
+              <p style={{ fontSize: '12px', color: 'white' }}>Page Limit : {pageLimit}</p>
+            </div>
+            <div>
+              <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>{'< Previous'}</button>
+              <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage}>{'Next >'}</button>
+            </div>
+          </div>
+        )}
       </div>
       {filteredTrackerList && filteredTrackerList.length > 0 && (
         <div className='tracker-list'>
