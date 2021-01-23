@@ -107,6 +107,7 @@ export default function TaskComponent(props) {
                 <p>{data.name}</p>
                 <p>Start Time: {formattedStartTime}</p>
                 <p>End Time: {formattedEndTime}</p>
+                <p>{data.description}</p>
             </div>
             <div>
                 <p>Total time spent</p>

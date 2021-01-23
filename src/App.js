@@ -68,11 +68,13 @@ function App() {
     }).then((res) => {
       res.json().then((d) => {
         let updatedTrackerList = Object.assign({}, trackerList);
-        console.log(d.data);
         updatedTrackerList[d.data._id] = d.data;
         setTrackerList(updatedTrackerList)
         setEndTime('');
         setStartTime('');
+        setName('');
+        setDescription('');
+        setIsModalOpen(false);
       })
     }).catch((err) => {
       window.alert('Error saving')
@@ -125,17 +127,21 @@ function App() {
           <label for="start">Start date:</label>
 
           <input type="datetime-local" id="start" name="trip-start"
-            value="2018-07-22"
-            min="2018-01-01" max="2018-12-31">
+            value={startTime}
+            onChange={(e) => setStartTime(e.target.value)}
+          >
 
           </input>
           <label for="start">End date:</label>
 
           <input type="datetime-local" id="end" name="trip-end"
-            value="2018-07-22"
-            min="2018-01-01" max="2018-12-31"></input>
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value)}
+          ></input>
           
-          <button onClick={onClickSubmit}>Submit</button>
+          <button style={{
+            marginTop: '20px'
+          }} onClick={onClickSubmit}>Submit</button>
         </div>
       </ReactModal>
     </div>
