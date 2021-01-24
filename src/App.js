@@ -43,7 +43,7 @@ function App() {
         const updated = trackerList.slice((currentPage - 1) * pageLimit, currentPage * pageLimit);
         const totalPages = Math.ceil(trackerList.length / pageLimit)
         setTotalPage(totalPages);
-        if(!updated.length) {
+        if (!updated.length) {
           setCurrentPage(totalPages);
         }
         setFilteredTrackerList(updated);
@@ -106,61 +106,66 @@ function App() {
 
   return (
     <div className="App">
-      <div className='top'>
-        <h1>Time Tracker</h1>
-        <input type="text" value={name} name="name" placeholder="Enter task name*" onChange={onChangeName} />
-        <textarea value={description} name="description" placeholder="Enter description here" onChange={onChangeDescription} rows="4" cols="70" style={{
-          marginBottom: '10px'
-        }} />
-        <div>
-          <input type="submit" disabled={name.length < 1} style={{
-            marginRight: '10px'
-          }} value="Submit" onClick={onClickSubmit} />
-          <input type="submit" value="Add Manual Task" onClick={onClickAddTracker} />
+      <div class="row">
+        <div class="column first-column">
+          <h1>Time Tracker</h1>
+          <input type="text" value={name} name="name" placeholder="Enter task name*" onChange={onChangeName} />
+          <textarea value={description} name="description" placeholder="Enter description here" onChange={onChangeDescription} rows="4" cols="70" style={{
+            marginBottom: '10px'
+          }} />
+          <div>
+            <input type="submit" disabled={name.length < 1} style={{
+              marginRight: '10px'
+            }} value="Submit" onClick={onClickSubmit} />
+            <input type="submit" value="Add Manual Task" onClick={onClickAddTracker} />
+          </div>
+
         </div>
-        <div>
-          <input value={searchText} type='text' className='search' name='search' placeholder='Search by description/name' onChange={onChangeSearch} />
-          <button onClick={() => setSearchText('')}>Reset</button>
-        </div>
-        {!searchText && (
-          <div style={{
-            marginTop: '10px'
-          }}>
-            <div>
-              <p style={{ fontSize: '12px', color: 'white' }}>Current Page : {currentPage}</p>
-              <p style={{ fontSize: '12px', color: 'white' }}>Total Pages : {totalPage}</p>
+        <div class="column">
+          <div>
+            <input value={searchText} type='text' className='search' name='search' placeholder='Search by description/name' onChange={onChangeSearch} />
+            <button onClick={() => setSearchText('')}>Reset</button>
+          </div>
+          {!searchText && (
+            <div style={{
+              marginTop: '10px'
+            }}>
               <div>
-                <span style={{ fontSize: '12px', color: 'white' }}>Page Limit : </span>
-                <select name="limit" id="limit" value={pageLimit.toString()} onChange={(e) => {
-                  setPageLimit(parseInt(e.target.value))
-                }}>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                </select>
+                <p style={{ fontSize: '12px' }}>Current Page : {currentPage}</p>
+                <p style={{ fontSize: '12px' }}>Total Pages : {totalPage}</p>
+                <div>
+                  <span style={{ fontSize: '12px' }}>Page Limit : </span>
+                  <select name="limit" id="limit" value={pageLimit.toString()} onChange={(e) => {
+                    setPageLimit(parseInt(e.target.value))
+                  }}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>{'< Previous'}</button>
+                <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage || totalPage === 0}>{'Next >'}</button>
               </div>
             </div>
-            <div>
-              <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>{'< Previous'}</button>
-              <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage || totalPage === 0}>{'Next >'}</button>
+          )}
+          {filteredTrackerList && filteredTrackerList.length > 0 && (
+            <div className='tracker-list'>
+              {filteredTrackerList.map(task => {
+                return (
+                  <Task keys={task._id} data={task} onRemove={() => onRemove(task._id)} />
+                )
+              })}
             </div>
-          </div>
-        )}
-      </div>
-      {filteredTrackerList && filteredTrackerList.length > 0 && (
-        <div className='tracker-list'>
-          {filteredTrackerList.map(task => {
-            return (
-              <Task keys={task._id} data={task} onRemove={() => onRemove(task._id)} />
-            )
-          })}
+          )}
         </div>
-      )}
+      </div>
       <ReactModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
         <div className='modal-form'>
           <input style={{
