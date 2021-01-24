@@ -108,16 +108,22 @@ export default function TaskComponent(props) {
     const time = secondsToTime(timeSpentInSec + runningTime);
     const startedTime = allTrackers?.[allTrackers.length - 1]?.startTime;
     const endTime = allTrackers?.[0]?.endTime;
-    const formattedStartTime = startedTime ? format(new Date(startedTime), 'dd/MM/yyyy hh:mm a') : '-';
-    const formattedEndTime = endTime ? format(new Date(endTime), 'dd/MM/yyyy hh:mm a') : '-';
+    const formattedStartTime = startedTime ? format(new Date(startedTime), 'dd MMM yyyy hh:mm a') : '-';
+    const formattedEndTime = endTime ? format(new Date(endTime), 'dd MMM yyyy hh:mm a') : '-';
 
     return (
         <div className='tracker'>
             <div>
                 <p>{data.name}</p>
-                <p>Start Time: {formattedStartTime}</p>
-                <p>End Time: {formattedEndTime}</p>
-                <p>{data.description}</p>
+                <p style={{
+                    fontSize: '13px'
+                }}>Start Time: {formattedStartTime}</p>
+                <p style={{
+                    fontSize: '13px'
+                }}>End Time: {formattedEndTime}</p>
+                <p style={{
+                    width: '250px'
+                }}>{data.description}</p>
             </div>
             <div>
                 <p>Total time spent</p>

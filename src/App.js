@@ -74,7 +74,7 @@ function App() {
     }).then((res) => {
       res.json().then((d) => {
         let updatedTrackerList = [...trackerList];
-        updatedTrackerList.push(d.data);
+        updatedTrackerList.unshift(d.data);
         setTrackerList(updatedTrackerList);
         setEndTime('');
         setStartTime('');
@@ -129,7 +129,7 @@ function App() {
             </div>
             <div>
               <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>{'< Previous'}</button>
-              <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage}>{'Next >'}</button>
+              <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage || totalPage === 0}>{'Next >'}</button>
             </div>
           </div>
         )}
