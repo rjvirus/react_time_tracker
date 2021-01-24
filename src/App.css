@@ -48,3 +48,11 @@ input[type="datetime-local"] {
 .first-column {
   border-right: 1px solid gray;
 }
+
+.list-nav {
+  margin-top: 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0px 10px;
+}

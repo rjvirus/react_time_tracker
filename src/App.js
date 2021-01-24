@@ -30,7 +30,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (trackerList) {
+    if (trackerList?.length) {
       if (searchText.length > 0) {
         const updatedArrray = [];
         trackerList.forEach(t => {
@@ -127,7 +127,7 @@ function App() {
             <button onClick={() => setSearchText('')}>Reset</button>
           </div>
           {!searchText && (
-            <div style={{
+            <div className='list-nav' style={{
               marginTop: '10px'
             }}>
               <div>
