@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import Task from './components/TaskComponent';
 import ReactModal from 'react-modal';
 
-const pageLimit = 4;
-
 function App() {
 
   const [name, setName] = useState('');
@@ -17,6 +15,7 @@ function App() {
   const [endTime, setEndTime] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [pageLimit, setPageLimit] = useState(4)
 
   useEffect(() => {
     fetch(`http://localhost:4000/app/getAll`, {
@@ -45,7 +44,7 @@ function App() {
         setFilteredTrackerList(updated);
       }
     }
-  }, [searchText, trackerList, currentPage]);
+  }, [searchText, trackerList, currentPage, pageLimit]);
 
   function onChangeName(event) {
     setName(event.target.value);
@@ -125,7 +124,19 @@ function App() {
             <div>
               <p style={{ fontSize: '12px', color: 'white' }}>Current Page : {currentPage}</p>
               <p style={{ fontSize: '12px', color: 'white' }}>Total Pages : {totalPage}</p>
-              <p style={{ fontSize: '12px', color: 'white' }}>Page Limit : {pageLimit}</p>
+              <div>
+                <span style={{ fontSize: '12px', color: 'white' }}>Page Limit : </span>
+                <select name="limit" id="limit" value={pageLimit} onChange={(e) => setPageLimit(e.target.value)}>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="4">5</option>
+                  <option value="4">6</option>
+                  <option value="4">7</option>
+                  <option value="4">8</option>
+                </select>
+              </div>
             </div>
             <div>
               <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>{'< Previous'}</button>
