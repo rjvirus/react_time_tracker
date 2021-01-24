@@ -126,15 +126,15 @@ function App() {
               <p style={{ fontSize: '12px', color: 'white' }}>Total Pages : {totalPage}</p>
               <div>
                 <span style={{ fontSize: '12px', color: 'white' }}>Page Limit : </span>
-                <select name="limit" id="limit" value={pageLimit} onChange={(e) => setPageLimit(e.target.value)}>
+                <select name="limit" id="limit" value={pageLimit.toString()} onChange={(e) => setPageLimit(parseInt(e.target.value))}>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
-                  <option value="4">5</option>
-                  <option value="4">6</option>
-                  <option value="4">7</option>
-                  <option value="4">8</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
                 </select>
               </div>
             </div>
