@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Task from './components/TaskComponent';
 import ReactModal from 'react-modal';
 
@@ -15,7 +15,8 @@ function App() {
   const [endTime, setEndTime] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [pageLimit, setPageLimit] = useState(4)
+  const [pageLimit, setPageLimit] = useState(4);
+  const pageLimitRef = useRef(pageLimit);
 
   useEffect(() => {
     fetch(`http://localhost:4000/app/getAll`, {
@@ -23,7 +24,7 @@ function App() {
     }).then(data => {
       data.json().then(d => {
         setTrackerList(d);
-        setTotalPage(Math.ceil(d.length / pageLimit));
+        setTotalPage(Math.ceil(d.length / pageLimitRef));
       })
     })
   }, []);
@@ -40,7 +41,11 @@ function App() {
         setFilteredTrackerList(updatedArrray);
       } else {
         const updated = trackerList.slice((currentPage - 1) * pageLimit, currentPage * pageLimit);
-        setTotalPage(Math.ceil(trackerList.length / pageLimit));
+        const totalPages = Math.ceil(trackerList.length / pageLimit)
+        setTotalPage(totalPages);
+        if(!updated.length) {
+          setCurrentPage(totalPages);
+        }
         setFilteredTrackerList(updated);
       }
     }
@@ -126,7 +131,9 @@ function App() {
               <p style={{ fontSize: '12px', color: 'white' }}>Total Pages : {totalPage}</p>
               <div>
                 <span style={{ fontSize: '12px', color: 'white' }}>Page Limit : </span>
-                <select name="limit" id="limit" value={pageLimit.toString()} onChange={(e) => setPageLimit(parseInt(e.target.value))}>
+                <select name="limit" id="limit" value={pageLimit.toString()} onChange={(e) => {
+                  setPageLimit(parseInt(e.target.value))
+                }}>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
