@@ -15,7 +15,7 @@ function App() {
   const [endTime, setEndTime] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [pageLimit, setPageLimit] = useState(4);
+  const [pageLimit, setPageLimit] = useState(6);
   const pageLimitRef = useRef(pageLimit);
 
   useEffect(() => {
