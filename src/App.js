@@ -116,8 +116,8 @@ function App() {
           <div>
             <input type="submit" disabled={name.length < 1} style={{
               marginRight: '10px'
-            }} value="Submit" onClick={onClickSubmit} />
-            <input type="submit" value="Add Manual Task" onClick={onClickAddTracker} />
+            }} value="Add Tracker" onClick={onClickSubmit} />
+            <input type="submit" value="Add Tracker Manually" onClick={onClickAddTracker} />
           </div>
 
         </div>
