@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import difference_in_seconds from 'date-fns/differenceInSeconds';
 import { format } from 'date-fns';
-import { Card } from '@material-ui/core';
+import { Button, Card, Icon, IconButton } from '@material-ui/core';
 
 
 export default function TaskComponent(props) {
@@ -131,10 +131,12 @@ export default function TaskComponent(props) {
                 <p>{time ? `${time.h} hour ${time.m} mins ${time.s} sec` : '-'}</p>
             </div>
             <div>
-                <button style={{
-                    marginRight: '10px'
-                }} onClick={() => currentTracker ? onClickPause() : onClickResume()}>{currentTracker ? 'Pause' : 'Resume'}</button>
-                <button onClick={() => onClickRemove()}>Remove</button>
+                <IconButton color='primary' title={currentTracker ? 'Pause' : 'Resume'} onClick={() => currentTracker ? onClickPause() : onClickResume()}>
+                    <Icon>{currentTracker ? 'pause' : 'play_arrow'}</Icon>
+                </IconButton>
+                <IconButton color='secondary' title={'Delete'} onClick={() => onClickRemove()}>
+                    <Icon>delete</Icon>
+                </IconButton>
             </div>
         </Card>
     )

@@ -1,8 +1,7 @@
 import './App.css';
 import { useEffect, useRef, useState } from 'react';
 import Task from './components/TaskComponent';
-import ReactModal from 'react-modal';
-import { Button } from '@material-ui/core';
+import { Button, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
 
 
 function App() {
@@ -167,8 +166,11 @@ function App() {
           )}
         </div>
       </div>
-      <ReactModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-        <div className='modal-form'>
+      <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className='modal-form' style={{
+          padding: '25px'
+        }}>
+          <DialogTitle>Add Manual Tracker</DialogTitle>
           <input style={{
             border: '1px solid black'
           }} type="text" value={name} name="name" placeholder="Enter task name *" onChange={onChangeName} />
@@ -196,16 +198,17 @@ function App() {
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
           ></input>
-          
-          <button style={{
-            marginTop: '20px',
-            width: '200px'
-          }} disabled={startTime === '' || name === ''} onClick={onClickSubmit}>Submit</button>
-          <button style={{
-            width: '200px'
-          }} onClick={() => setIsModalOpen(false)}>Close Dialog</button>
+
+          <DialogActions>
+            <Button onClick={() => setIsModalOpen(false)} variant='contained' color="primary">
+              Cancel
+            </Button>
+            <Button disabled={startTime === '' || name === ''} variant='contained' onClick={onClickSubmit} color="primary" autoFocus>
+              Submit
+          </Button>
+          </DialogActions>
         </div>
-      </ReactModal>
+      </Dialog>
     </div>
   );
 }
