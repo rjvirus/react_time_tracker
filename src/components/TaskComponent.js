@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import difference_in_seconds from 'date-fns/differenceInSeconds';
 import { format } from 'date-fns';
+import { Card } from '@material-ui/core';
 
 
 export default function TaskComponent(props) {
@@ -112,7 +113,7 @@ export default function TaskComponent(props) {
     const formattedEndTime = endTime ? format(new Date(endTime), 'dd MMM yyyy hh:mm a') : '-';
 
     return (
-        <div className='tracker'>
+        <Card className='tracker' variant='elevation'>
             <div>
                 <p>{data.name}</p>
                 <p style={{
@@ -135,7 +136,7 @@ export default function TaskComponent(props) {
                 }} onClick={() => currentTracker ? onClickPause() : onClickResume()}>{currentTracker ? 'Pause' : 'Resume'}</button>
                 <button onClick={() => onClickRemove()}>Remove</button>
             </div>
-        </div>
+        </Card>
     )
 }
 

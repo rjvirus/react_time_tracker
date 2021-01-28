@@ -21,8 +21,7 @@
 
 .search {
   width: 200px !important;
-  margin-bottom: 0px !important;
-  margin-top: 35px;
+  margin-bottom: 0 !important;
 }
 
 .modal-form {

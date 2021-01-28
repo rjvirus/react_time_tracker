@@ -2,6 +2,8 @@ import './App.css';
 import { useEffect, useRef, useState } from 'react';
 import Task from './components/TaskComponent';
 import ReactModal from 'react-modal';
+import { Button } from '@material-ui/core';
+
 
 function App() {
 
@@ -114,40 +116,41 @@ function App() {
             marginBottom: '10px'
           }} />
           <div>
-            <input type="submit" disabled={name.length < 1} style={{
+            <Button style={{
               marginRight: '10px'
-            }} value="Add Tracker" onClick={onClickSubmit} />
-            <input type="submit" value="Add Tracker Manually" onClick={onClickAddTracker} />
+            }} disabled={name.length < 1} variant='contained' onClick={onClickSubmit}>Start Tracking</Button>
+            <Button variant='contained' onClick={onClickAddTracker}>Add Tracker Manually</Button>
           </div>
 
         </div>
         <div class="column">
-          <div>
+          <div style={{
+            padding: '20px'
+          }}>
             <input value={searchText} type='text' className='search' name='search' placeholder='Search by description/name' onChange={onChangeSearch} />
-            <button onClick={() => setSearchText('')}>Reset</button>
+            <button style={{
+              marginLeft: '5px'
+            }} onClick={() => setSearchText('')}>Reset</button>
           </div>
           {!searchText && (
             <div className='list-nav' style={{
               marginTop: '10px'
             }}>
               <div>
-                <p style={{ fontSize: '12px' }}>Current Page : {currentPage}</p>
-                <p style={{ fontSize: '12px' }}>Total Pages : {totalPage}</p>
-                <div>
-                  <span style={{ fontSize: '12px' }}>Page Limit : </span>
-                  <select name="limit" id="limit" value={pageLimit.toString()} onChange={(e) => {
-                    setPageLimit(parseInt(e.target.value))
-                  }}>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="6">6</option>
-                    <option value="8">8</option>
-                    <option value="8">10</option>
-                    <option value="8">15</option>
-                  </select>
-                </div>
+                <span style={{ fontSize: '12px' }}>Page Limit : </span>
+                <select name="limit" id="limit" value={pageLimit.toString()} onChange={(e) => {
+                  setPageLimit(parseInt(e.target.value))
+                }}>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="6">6</option>
+                  <option value="8">8</option>
+                  <option value="8">10</option>
+                  <option value="8">15</option>
+                </select>
               </div>
               <div>
+                <span style={{ fontSize: '12px', marginRight: '5px' }}>{currentPage} of {totalPage}</span>
                 <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>{'< Previous'}</button>
                 <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage || totalPage === 0}>{'Next >'}</button>
               </div>
@@ -193,7 +196,7 @@ function App() {
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
           ></input>
-
+          
           <button style={{
             marginTop: '20px',
             width: '200px'
