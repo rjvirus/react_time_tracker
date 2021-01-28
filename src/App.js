@@ -107,8 +107,8 @@ function App() {
 
   return (
     <div className="App">
-      <div class="row">
-        <div class="column first-column">
+      <div className="row">
+        <div className="column first-column">
           <h1>Time Tracker</h1>
           <input type="text" value={name} name="name" placeholder="Enter task name*" onChange={onChangeName} />
           <textarea value={description} name="description" placeholder="Enter description here" onChange={onChangeDescription} rows="4" cols="70" style={{
@@ -122,7 +122,7 @@ function App() {
           </div>
 
         </div>
-        <div class="column">
+        <div className="column">
           <div style={{
             padding: '20px'
           }}>
@@ -159,7 +159,7 @@ function App() {
             <div className='tracker-list'>
               {filteredTrackerList.map(task => {
                 return (
-                  <Task keys={task._id} data={task} onRemove={() => onRemove(task._id)} />
+                  <Task key={task._id} data={task} onRemove={() => onRemove(task._id)} />
                 )
               })}
             </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import difference_in_seconds from 'date-fns/differenceInSeconds';
 import { format } from 'date-fns';
-import { Button, Card, Icon, IconButton } from '@material-ui/core';
+import { Card, Icon, IconButton } from '@material-ui/core';
 
 
 export default function TaskComponent(props) {
