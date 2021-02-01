@@ -25,7 +25,7 @@ function App() {
     }).then(data => {
       data.json().then(d => {
         setTrackerList(d);
-        setTotalPage(Math.ceil(d.length / pageLimitRef));
+        setTotalPage(Math.ceil(d.length / pageLimitRef.current));
       })
     })
   }, []);
